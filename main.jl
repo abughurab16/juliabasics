@@ -102,7 +102,7 @@ println(d1)
 d1["fourthval"] = 72
 println(d1)
 
-d2 = Dict{Bool, AbstractString}()
+d2 = Dict{Bool,AbstractString}()
 d2[true] = "on"
 d2[false] = "off"
 println(d2)
@@ -134,7 +134,7 @@ for i in ac
 end
 
 ad = ["one", "two", "three"]
-for (i,v) in enumerate(ad)
+for (i, v) in enumerate(ad)
     println("index: $i, value: $v")
 end
 
@@ -192,7 +192,7 @@ mutable struct Person
     subject::AbstractString
 end
 
-p = Person("Ahmad", 16, true,"Microbiology")
+p = Person("Ahmad", 16, true, "Microbiology")
 println(p)
 
 people = Person[]
@@ -204,7 +204,7 @@ println(people)
 
 mutable struct Family
     name::AbstractString
-    members::Array{AbstractString, 1}
+    members::Array{AbstractString,1}
     extended::Bool
     Family(name::AbstractString) = new(name, AbstractString[], false)
     Family(name::AbstractString, members) = new(name, members, length(members) > 3)
@@ -213,3 +213,33 @@ end
 
 fam1 = Family("dio", ["luke", "liam", "che", "cho"])
 println(fam1)
+
+# Reading files
+
+fname = "open.txt"
+open(fname, "r") do f
+    for line in eachline(f)
+        println(line)
+    end
+end
+
+# Another way
+
+f = open(fname, "r")
+show(readlines(f)); println()
+close(f)
+
+# Another way
+
+t = open(fname, "r")
+fstring = read(t, String)
+close(f)
+println(fstring)
+
+# Writing to files 
+outfile = "outfile.txt"
+f = open(outfile, "w")
+println(f, "some content")
+println(f, "added more")
+println(f, "le contentdro")
+close(f)
